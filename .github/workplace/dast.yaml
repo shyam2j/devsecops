@@ -1,0 +1,22 @@
+name: Dynamic Application Security Testing (DAST)
+
+on:
+  workflow_call: {}
+
+jobs:
+  dast:
+    name: Run DAST scans
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install DAST tool
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install w3af
+      - name: Run DAST scan
+        run: |
+          echo "DAST scan placeholder: configure target application and scan command"

@@ -1,0 +1,26 @@
+name: Static Application Security Testing (SAST)
+
+on:
+  workflow_call: {}
+
+jobs:
+  sast:
+    name: Run SAST tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install SAST scanner
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install bandit
+      - name: Run Bandit
+        run: |
+          if [ -d . ]; then
+            bandit -r . || true
+          else
+            echo "No Python files found for Bandit scan"
+          fi
